@@ -18,10 +18,15 @@ function HomePage({}: Props) {
   const [currOption, setCurrOption] = useState<string>("pwd");
   const [deptNames, setDeptNames] = useState<any[]>([]);
   const [assets, setAssets] = useState<any[]>([]);
+  const [otherDetails, setOtherDetails] = useState<any>({
+    deptName: "",
+    email: "",
+    id: ""
+  });
 
   useEffect(() => {
-    console.log(assets)
-  }, [assets])
+    console.log(assets);
+  }, [assets]);
 
   useEffect(() => {
     const fetchAllAssets = async () => {
@@ -45,7 +50,13 @@ function HomePage({}: Props) {
           toast.success(`${result.msg}`, {
             duration: 5000,
           });
-          setAssets(result.data?.asset)
+          setOtherDetails((prev: any) => ({
+            ...prev,
+            deptName: result.data.name,
+            email: result.data.email,
+            id: result.data._id
+          }));
+          setAssets(result.data?.assetMetaData);
         } else {
           toast.error(`${result.msg}`, {
             duration: 5000,
@@ -78,7 +89,7 @@ function HomePage({}: Props) {
 
         if (result.success) {
           toast.success("dept names fetched");
-          setDeptNames(result.data)
+          setDeptNames(result.data);
         } else {
           toast.error(`${result.msg}`, {
             duration: 5000,
@@ -107,8 +118,15 @@ function HomePage({}: Props) {
   ));
 
   const renderAssets = assets?.map((item) => (
-    <Asset deptName={item.department_name} assignedTo={item.assignedToDept} uniqueId={item.uniqueId} vacant={item.vacant} createdAt={item.createdAt}/>
-  ))
+    <Asset
+      id={otherDetails.id}
+      deptName={otherDetails.deptName}
+      email={otherDetails.email}
+      name={item.name}
+      total_asset={item.total}
+      assigned={item.assigned}
+    />
+  ));
 
   const changeTab = (tab: string) => {
     console.log("hi");
@@ -146,13 +164,16 @@ function HomePage({}: Props) {
             defaultValue="assets"
             className="w-full"
           >
-            <TabsList defaultValue='assets' className="font-poppins bg-transparent p-0 relative">
+            <TabsList
+              defaultValue="assets"
+              className="font-poppins bg-transparent p-0 relative"
+            >
               <div className="absolute -z-10 left-0 bottom-0 h-[3px] w-full bg-gray-200"></div>
               <TabsTrigger value="assets">Assets</TabsTrigger>
               <TabsTrigger value="projects">Projects</TabsTrigger>
             </TabsList>
 
-            <div className="m-2">
+            <div className="m-3">
               <Button
                 onClick={() => triggerRef.current?.click()}
                 className="bg-blue-500 px-7 py-[26px] text-lg"
@@ -161,9 +182,9 @@ function HomePage({}: Props) {
               </Button>
             </div>
 
-            <div>
+            <div className="p-3 pt-0">
               <TabsContent value="assets">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                   {renderAssets}
                 </div>
               </TabsContent>

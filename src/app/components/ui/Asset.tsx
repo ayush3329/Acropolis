@@ -1,47 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { BookOpenText, Building, Clock, Plus } from "lucide-react";
+import Link from "next/link";
 
 type Props = {
+  id: string;
   deptName: string;
-  assignedTo: string;
-  vacant: boolean;
-  createdAt: string;
-  uniqueId: string;
+  email: string;
+  name: string;
+  total_asset: number;
+  assigned: number;
 };
 
-function Asset({ deptName, assignedTo, vacant, createdAt, uniqueId }: Props) {
-  const [showModel, setShowModel] = useState<boolean>(false);
-
-  const closeModel = () => {
-    setShowModel(false);
-  };
-
-  const openModel = () => {
-    setShowModel(true);
-  };
-
+function Asset({ id, deptName, email, name, total_asset, assigned }: Props) {
   return (
-    <div className="flex items-start gap-3 justify-between">
+    <div className="font-poppins flex p-3 bg-gray-100 rounded-md items-start gap-3 justify-between">
       <div className="w-full relative flex flex-col justify-center gap-2">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <Building className="bg-white text-gray-600 p-2.5 w-[58px] h-[58px] rounded-lg border-[3px]" />
           <div>
             <p className="text-xl font-semibold">{deptName}</p>
-            <p className="text-sm font-semibold">{uniqueId}</p>
+            <p className="text-sm font-semibold">{email}</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 text-sm">
-          <p className="flex gap-1 items-center font-semibold pr-2 border-r-0 sm:border-r-[3px] border-gray-400">
-            <Clock className="w-5 h-5 text-red-400" />
-            {createdAt}
-          </p>
+        <h2 className="text-lg font-semibold">{name}</h2>
 
-          <p className={``}>{vacant ? "available" : "unavailable"}</p>
+        <div className="flex items-center gap-4 text-sm">
+          <div className="bg-green-200 w-1/2 p-1 px-2 rounded-sm">
+            <h1 className="text-3xl font-semibold">{total_asset}</h1>
+            <p className="text-base font-semibold">Total</p>
+          </div>
 
-          <p className="text-sm font-semibold">{uniqueId}</p>
+          <div className="bg-red-200 w-1/2 p-1 px-2 rounded-sm">
+            <h1 className="text-3xl font-semibold">{assigned}</h1>
+            <p className="text-base font-semibold">Assigned</p>
+          </div>
         </div>
+
+        <Link href={`/assetDetails?id=${encodeURIComponent(id)}&deptName=${encodeURIComponent(deptName)}`} className="w-full">
+          <Button className="hover:bg-blue-400 w-full">Detailed Info</Button>
+        </Link>
       </div>
     </div>
   );
