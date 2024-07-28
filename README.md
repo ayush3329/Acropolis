@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Municipal Corporation of Indore Asset Management System
 
-First, run the development server:
+## Table of Contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. [Introduction](#introduction)
+2. [Features](#features)
+3. [Technologies Used](#technologies-used)
+4. [Installation](#installation)
+5. [Usage](#usage)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Introduction
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The Municipal Corporation of Indore Asset Management System is a centralized platform designed to manage all departments, assets, ongoing and upcoming projects, and departmental authorities within the municipal corporation. The system ensures efficient resource management, transparent project tracking, and active public engagement.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Features
 
-## Learn More
+- **Role-Based Authentication:** Secure access with varying levels of privileges based on user roles.
+- **Department Overview:** Display all departments with detailed views of their projects and assets.
+- **Asset Management:** Track and manage assets categorized by use and demand.
+- **Project Tracking:** Comprehensive tracking of ongoing, upcoming, and completed projects.
+- **Inter-Departmental Collaboration:** Efficient resource requests and approvals between departments.
+- **Public Engagement:** Users can report damaged assets and track complaint resolutions.
+- **Machine Learning Integration:** Automated complaint routing using OpenCV and machine learning.
+- **Geotagging:** Authenticates resolved complaints with geotagged photos.
 
-To learn more about Next.js, take a look at the following resources:
+## Technologies Used
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Frontend:** Next.js, Tailwind CSS
+- **Backend:** Node.js
+- **Database:** PostgreSQL
+- **Machine Learning:** Python (OpenCV)
+- **Authentication:** JWT (JSON Web Tokens)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Installation
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 1. Starting the ML Python Server
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Navigate to the `ml-server` directory.
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Start the ML server:
+   ```bash
+   python ml_server.py
+   ```
+4. The ML server should now be running at [http://localhost:5000](http://localhost:5000).
+
+### 2. Starting the Backend (Node.js)
+
+1. Navigate to the `backend` directory.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Set up environment variables:
+   - Create a `.env` file based on `.env.example` and configure necessary variables.
+4. Start the backend server:
+   ```bash
+   npm run dev
+   ```
+5. The backend server should now be running at [http://localhost:3000](http://localhost:3000).
+
+### 3. Starting the Frontend (Next.js)
+
+1. Navigate to the `frontend` directory.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the frontend development server:
+   ```bash
+   npm run dev
+   ```
+4. The frontend should now be running at [http://localhost:3000](http://localhost:3000).
+
+### Additional Notes
+
+- Ensure all services are running simultaneously for full functionality.
+- Adjust configurations and environment variables as per your setup.
+
+
+## Usage
+
+1. **Launch the application:**
+   - Navigate to `http://localhost:3000` in your web browser.
+   - Log in using your credentials.
+
+2. **Explore the Features:**
+   - Navigate through departments, assets, and projects.
+   - Submit asset requests and track project status.
+   - Report damaged assets and monitor complaint resolutions.
+
+
+Thank you for using the Municipal Corporation of Indore Asset Management System! We hope it enhances the efficiency and transparency of asset and project management within your organization.
